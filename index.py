@@ -64,21 +64,21 @@ def top():
 
     List = zip(titleList,linkList,timeList)
 
-    rssuq = feedparser.parse("http://www.uqwimax.jp/information/index.xml")
+    rssuq = feedparser.parse("http://www.mitsubishi-motors.co.jp/component/documents/news_message.xml")
 
     uqlinkList = []
     uqlinkList.append(rssuq.feed.link)
     for entryuq in rssuq.entries:
         uqlinkList.append(entryuq.link)
 
-    rssuq2 = feedparser.parse("http://www.uqwimax.jp/information/index.xml")
+    rssuq2 = feedparser.parse("http://www.mitsubishi-motors.co.jp/component/documents/news_message.xml")
     uqtitleList = []
     uqtitleList.append(rssuq2.feed.title)
     for entryuq2 in rssuq2.entries:
         uqtitleList.append(entryuq2.title)
 
     uqtimeList = []
-    rssuq3 = feedparser.parse("http://www.uqwimax.jp/information/index.xml")
+    rssuq3 = feedparser.parse("http://www.mitsubishi-motors.co.jp/component/documents/news_message.xml")
     for entryuq3 in rssuq3.entries:
         uqtimeList.append(entryuq3.updated)
 
