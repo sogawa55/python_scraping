@@ -11,7 +11,7 @@ import sys
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # テンプレートファイルを設置するディレクトリのパスを指定
 TEMPLATE_PATH.append(BASE_DIR + "/views")
-
+# テスト
 @route('/')
 def top():
 
