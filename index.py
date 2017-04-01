@@ -7,100 +7,68 @@ import feedparser
 import time
 import sys
 
-# index.pyが設置されているディレクトリの絶対パスを取得
+# index.pyのディレクトリの絶対パスを取得
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # テンプレートファイルを設置するディレクトリのパスを指定
 TEMPLATE_PATH.append(BASE_DIR + "/views")
 
+#ルーティング
 @route('/')
 def top():
 
-    # 配列を渡すための準備
+    #techcrunch用の空のリストを作成
+    techcrunch_List = []
 
+    #techcrunch用のリンクをパース
+    rss_techcrunch = feedparser.parse("http://jp.techcrunch.com/feed/")
+    techcrunch_linkList = []
+    techcrunch_linkList.append(rss_techcrunch.feed.link)
+    for entry_techcrunch in rss_techcrunch.entries:
+        techcrunch_linkList.append(entry_techcrunch.link)
 
-    lists =[]
+    #techcrunch用のタイトルをパース
+    rss_techcrunch2 = feedparser.parse("http://jp.techcrunch.com/feed/")
+    techcrunch_titleList = []
+    techcrunch_titleList.append(rss_techcrunch2.feed.title)
+    for entry_techcrunch2 in rss_techcrunch2.entries:
+        techcrunch_titleList.append(entry_techcrunch2.title)
 
-#対象のRSS
-    lists.append("https://www.gisa-japan.org/news/rss.xml")
-    lists.append("http://www.gsi.go.jp/index.rdf")
-    lists.append("http://www.esrij.com/feed/")
-    lists.append("http://www.jodc.go.jp/jodcweb/cgi-bin/public/newsrss1.cgi?lang=ja")
-    lists.append("http://www.npo-zgis.or.jp/rss.xml")
-    lists.append("http://www.uqwimax.jp/annai/news_release/index.xml")
+    #techcrunch用の更新時間をパース
+    rss_techcrunch3 = feedparser.parse("http://jp.techcrunch.com/feed/")
+    techcrunch_timeList = []
+    for entry_techcrunch3 in rss_techcrunch3.entries:
+        techcrunch_timeList.append(entry_techcrunch3.updated)
 
+    #techcrunch用のタイトル、リンク、更新時間をZIP関数でマージ
+    techcrunch_List = zip(techcrunch_titleList,techcrunch_linkList,techcrunch_timeList)
 
+    #WIRED用の空のリストを作成
+    wired_List = []
 
-    titleList = []
+    #WIRED用のリンクをパース
+    rss_wired = feedparser.parse("http://wired.jp/rssfeeder/")
+    wired_linkList = []
+    wired_linkList.append(rss_techcrunch.feed.link)
+    for entry_wired in rss_wired.entries:
+        wired_linkList.append(entry_wired.link)
 
-    for l in lists:
-         rss = feedparser.parse(l)
-         titleList.append([rss.feed.title])
-         #RSS情報をリストに格納
-         for entry in rss.entries:
-             #RSS情報をリストに格納
-             titleList.append([entry.title])
+    #WIRED用のタイトルをパース
+    rss_wired2 = feedparser.parse("http://wired.jp/rssfeeder/")
+    wired_titleList = []
+    wired_titleList.append(rss_wired2.feed.title)
+    for entry_wired2 in rss_wired2.entries:
+        wired_titleList.append(entry_wired2.title)
 
-    kaisuu = len(titleList)
-    kazu = int(kaisuu)
+    #WIRED用の更新時間をパース
+    rss_wired3 = feedparser.parse("http://wired.jp/rssfeeder/")
+    wired_timeList = []
+    for entry_wired3 in rss_wired3.entries:
+        wired_timeList.append(entry_wired3.updated)
 
-    linkList = []
+    #WIRED用のタイトル、リンク、更新時間をZIP関数でマージ
+    wired_List = zip(wired_titleList,wired_linkList,wired_timeList)
 
-    for l2 in lists:
-        rss2 = feedparser.parse(l2)
-        linkList.append([rss2.feed.link])
-
-        for entry2 in rss2.entries:
-
-            linkList.append(entry2.link)
-
-    timeList = []
-
-    for l3 in lists:
-        rss3 = feedparser.parse(l3)
-
-        for entry in rss3.entries:
-            timeList.append(entry.updated)
-
-
-    #コメントでーーーーーーーーーーす
-    List = zip(titleList,linkList,timeList)
-
-    rssuq = feedparser.parse("http://www.mitsubishi-motors.co.jp/component/documents/news_message.xml")
-    #コメントでーーーーーーーーーーす3
-
-    #コメントでーーーーーーーーーーす2
-    uqlinkList = []
-    uqlinkList.append(rssuq.feed.link)
-    for entryuq in rssuq.entries:
-        uqlinkList.append(entryuq.link)
-
-    rssuq2 = feedparser.parse("http://www.mitsubishi-motors.co.jp/component/documents/news_message.xml")
-    uqtitleList = []
-    uqtitleList.append(rssuq2.feed.title)
-    for entryuq2 in rssuq2.entries:
-        uqtitleList.append(entryuq2.title)
-
-    uqtimeList = []
-    rssuq3 = feedparser.parse("http://www.mitsubishi-motors.co.jp/component/documents/news_message.xml")
-    for entryuq3 in rssuq3.entries:
-        uqtimeList.append(entryuq3.updated)
-
-    uqList = zip(uqtitleList,uqlinkList,uqtimeList)
-
-
-    fizzbuzz = []
-    for i in range(1, 100):
-
-        if i % 3 == 0 and i % 5 == 0:
-            fizzbuzz.append(str(i) + ": fizzbuzz")
-        elif i % 3 == 0:
-            fizzbuzz.append(str(i) + ": fizz")
-        elif i % 5 == 0:
-            fizzbuzz.append(str(i) + ": buzz")
-        else:
-            fizzbuzz.append(str(i))
-
-    return template('top', name="umentu", fizzbuzz=fizzbuzz, List=List,uqList=uqList)
+    return template('top',wired_List=wired_List,techcrunch_List=techcrunch_List)
 
 if __name__ == "__main__":
     run(host="localhost", port=8081, debug=True, reloader=True)

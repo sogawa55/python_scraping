@@ -2,53 +2,28 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>テストページ</title>
+    <title>Scraipingページ</title>
 </head>
 <body>
-<!--変数を使う場合は、｛｛｝｝ の中に変数名を記述-->
-こんにちは、 {{name}}
-
-<h1>今日のfizzbuzz</h1>
-<!--
-配列fizzbuzzから１つずつ順番にデータを取り出し、fzbzに代入。
-fzbzは単なる変数のため、｛｛｝｝で表示
--->
-
-<h1>UQ</h1>
 
 
-{% for a,b,c in uqList %}
+<h1>Techcrunch</h1>
+
+{% for a,b,c in techcrunch_List %}
 <a href= {{b}} target="_blank">{{a}}</a>
 </br>
 {{c}}
 </br>
 {% endfor %}
 
-<h1>今日のfizzbuzz</h1>
-{% for post1,post2,post3 in List %}
-<a href= {{post2}} target="_blank">{{post1}}</a>
+<h1>WIRED</h1>
+
+{% for d,e,f in wired_List %}
+<a href= {{e}} target="_blank">{{d}}</a>
 </br>
-{{post3}}
+{{f}}
 </br>
 {% endfor %}
-
-
-
-
-
-{% for post2 in linkList %}
-{{ post2 }}<br />
-{% endfor %}
-
-
-{% for post in titleList %}
-{{ post }}<br />
-{% endfor %}
-
-{% for fzbz in fizzbuzz %}
-{{ fzbz }}<br />
-{% endfor %}
-
 
 </body>
 </html>
