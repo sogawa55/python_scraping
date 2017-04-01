@@ -62,11 +62,13 @@ def top():
             timeList.append(entry.updated)
 
 
+    #コメントでーーーーーーーーーーす
     List = zip(titleList,linkList,timeList)
 
     rssuq = feedparser.parse("http://www.mitsubishi-motors.co.jp/component/documents/news_message.xml")
     #コメントでーーーーーーーーーーす3
 
+    #コメントでーーーーーーーーーーす2
     uqlinkList = []
     uqlinkList.append(rssuq.feed.link)
     for entryuq in rssuq.entries:
