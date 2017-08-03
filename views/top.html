@@ -8,20 +8,20 @@
 
 
 <h1>Techcrunch</h1>
-
-{% for a,b,c in techcrunch_List %}
-<a href= {{b}} target="_blank">{{a}}</a>
+#techcrunchのRSSフィードを表示
+{% for title,link,time in techcrunch_List %}
+<a href= {{link}} target="_blank">{{title}}</a>
 </br>
-{{c}}
+{{time}}
 </br>
 {% endfor %}
 
 <h1>WIRED</h1>
-
-{% for d,e,f in wired_List %}
-<a href= {{e}} target="_blank">{{d}}</a>
+#WIREDのRSSフィードを表示
+{% for title2,link2,time2 in wired_List %}
+<a href= {{link2}} target="_blank">{{title2}}</a>
 </br>
-{{f}}
+{{time2}}
 </br>
 {% endfor %}
 
